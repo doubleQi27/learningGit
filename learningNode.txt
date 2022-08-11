@@ -14,7 +14,7 @@
 
 5、git commit：提交修改说明，便于自己或其他人查看——>git commit -m 修改说明。
 
-6、git status：让我们时刻掌握仓库的状态，查看仓库内的文件是否被修改过，没有被修改过不会有特殊提示；若git仓库中的文件被修改，则会出现红色“modified”字样，并提示该是该是否提交（commit）。git status命令只能提示仓库中的文件是否被修改，但无法告知具体修改的内容。
+6、git status：让我们时刻掌握仓库的状态，查看仓库内的文件是否被修改过，没有被修改过不会有特殊提示；若git仓库中的文件被修改，则会出现“modified”字样，并提示该是该是否提交（commit）。git status命令只能提示仓库中的文件是否被修改，但无法告知具体修改的内容。
 
 7、git diff：查看修改了哪些地方，即difference。
 
@@ -23,14 +23,32 @@
 
 9、git log  （--pretty=oneline）：查看提交日志。
 
-10、版本回退：git reset --指定回退到的版本。
+10、版本回退：git reset --hard 指定回退到的版本。
       HEAD：当前版本；
       HEAD^：上一个版本；
       HEAD^^：上上一个版本；
       HEAD~n：往上n个版本。
       HEAD commit ID：到指定commit ID的版本，这个就无所谓过去还是未来了。commit ID不用写全，git会根据输入的前几位自动去匹配。（前提是当前 git bash窗口一直处于打开状态）。
 
-11、 如果关掉了git bash，失去了commit id，如何回复最新版本：
+11、 如果关掉了git bash，失去了commit id，如何回到最新版本：
         git reflog 命令可帮助找回修改内容对应的commit id。
 
-12、版本回退测试内容。
+12、工作区和暂存区
+      工作区（Working Directory）：以本库为例，learningGit即可视为一个工作区；
+      版本库（Repository）：工作区中的隐藏文件夹.git，它不算工作区，而是git的版本库。版本库中存放的最重要的东西是stage（index），即暂存区，还有git自动创建的第一个分支master，及指向master的指针HEAD。
+      git add：文件修改添加到暂存区；
+      git commit：把暂存区所有内容提交到当前分支。
+      照此逻辑，文件修改必须先通过git add加入到暂存区，再用git commit提交，修改方能生效，直接git commit，修改不会生效。
+
+13、撤销修改
+       ①git checkout -- 文件名：撤销在工作区的修改：
+       a、在工作区修改后尚未提交到暂存区（未执行git add），回到版本库一模一样的状态；
+       b、已经添加到暂存区（执行了git add），又做了修改，回到添加到暂存区后的状态。
+       ②git reset HEAD 文件名称：撤销暂存区的修改，重新放回工作区。
+
+14、删除文件：rm 文件名。
+       此时工作区与版本库就不一致了。
+       ①若确定要删除版本库中的文件：git rm 文件名——>git commit -m 删除信息。
+       ②误删：git checkout -- 文件名。
+
+15、
