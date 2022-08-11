@@ -17,3 +17,18 @@
 6、git status：让我们时刻掌握仓库的状态，查看仓库内的文件是否被修改过，没有被修改过不会有特殊提示；若git仓库中的文件被修改，则会出现红色“modified”字样，并提示该是该是否提交（commit）。git status命令只能提示仓库中的文件是否被修改，但无法告知具体修改的内容。
 
 7、git diff：查看修改了哪些地方，即difference。
+
+8、修改文件并提交的总体流程：
+     修改文件（必须是git仓库中的文件）——>git status（查看状态）/git diff+文件全名（查看修改内容）——>git add 文件全名——>git commit -m 修改说明。
+
+9、git log  （--pretty=oneline）：查看提交日志。
+
+10、版本回退：git reset --指定回退到的版本。
+      HEAD：当前版本；
+      HEAD^：上一个版本；
+      HEAD^^：上上一个版本；
+      HEAD~n：往上n个版本。
+      HEAD commit ID：到指定commit ID的版本，这个就无所谓过去还是未来了。commit ID不用写全，git会根据输入的前几位自动去匹配。（前提是当前 git bash窗口一直处于打开状态）。
+
+11、 如果关掉了git bash，失去了commit id，如何回复最新版本：
+        git reflog 命令可帮助找回修改内容对应的commit id。
