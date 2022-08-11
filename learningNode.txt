@@ -51,4 +51,8 @@
        ①若确定要删除版本库中的文件：git rm 文件名——>git commit -m 删除信息。
        ②误删：git checkout -- 文件名。
 
-15、
+15、本地库与github库连接：
+       ①git remote add origin git@github.com:github用户名/仓库名；
+       ②git push -u origin master：把本地库的内容推送到远程库，实际上是把当前分支master推送到远程。由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令；
+       ③git push origin master：本地做完提交后，使用该命令可将最新修改提交至GitHub；
+       ④删除远程库（本地库与远程库断开连接）：git remove rm 库名称（一般写origin）。删除前建议先查看远程库信息：git remote -v。另外，此处的删除只是断开本地库与远程库的连接，并非从物理上删除远程库，物理删除通过github。
