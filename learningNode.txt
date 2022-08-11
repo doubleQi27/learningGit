@@ -32,3 +32,5 @@
 
 11、 如果关掉了git bash，失去了commit id，如何回复最新版本：
         git reflog 命令可帮助找回修改内容对应的commit id。
+
+12、版本回退测试内容。
