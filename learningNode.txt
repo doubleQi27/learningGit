@@ -3,6 +3,9 @@
 2、配置用户名及密码（邮箱）：
     git config --global user.name "输入用户名"
     git config --global user.email "输入邮箱名"
+    查看用户名及密码：
+    git config user.name
+    git config user.email
 
 3、建立git仓库：
      命令行创建仓库目录——>pwd：查看仓库目录——>进入该目录——>git init：使该目录成为git管理的仓库（生成隐藏文件夹.git，不要随意修改该文件，避免破坏仓库）。
