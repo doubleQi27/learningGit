@@ -37,4 +37,31 @@
 注意：强制禁止fast forward模式合并：git merge --no-ff -m 分支合并信息 想合并的分支名。
 
 24、多人协作分支管理策略：
+       master——主分支，版本发布时使用，其余时间不要乱动；
+       dev——干活儿分支，所有人干的活先合并到这个分支，到发版时再合并到master；
+       个人分支——自己干活儿的分支，可以有多个，可以有分支的分支。
 
+25、bug分支——使用git的stash——工作现场隐藏功能。
+       当需要修改bug，而当前工作尚未完成，则可以先使用
+       ：git stash
+       指令隐藏工作现场，之后在当前工作分支的基础上建立新的分支来修复bug，修复完成后，切换回工作分支，删除bug修复分支，再使用：
+       git stash list
+       指令查看被git保存起来的工作现场，使用
+       ①git stash apply——>git stash drop恢复（apply只恢复但不删除stash内容，需使用drop删除）；
+       ②git stash pop恢复（同时删除stash内容）。
+
+26、标签管理。
+       发版时，通常先在版本库中打一个标签（tag），由此唯一确定打了标签的版本，将来即可按照标签取出对应的历史版本。
+
+27、创建标签（默认创建在最新提交上）：
+      ①先切换到主分支（用于最终发版的，比如master）；
+      ②使用git tag 标签名（一般是版本号，如V1.0）创建标签。
+      ③git tag：查看所有标签；
+      ④在指定commit ID上打标签：git tag 标签名 commit_ID。
+      ⑤带有说明的标签：git tag -a 标签名 -m 标签说明 （commit_ID）。
+
+28、操作标签：
+       ①删除标签：git tag -d 标签名；
+       ②推送标签到远程库：git push origin 标签名；
+       ③一次性推送所有标签：git push origin --tags。
+       ④删除远程标签：先删除本地标签，之后：git push origin :refs/tags/标签名。
