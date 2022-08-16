@@ -1,0 +1,21 @@
+part1：视频课笔记：
+
+1、springBoot上的web应用打包为jar包，原因：springBoot内置一个tomcat服务器。
+
+2、依赖：引用外部资源。使用import指令引用外部库。结合依赖的概念理解maven依赖管理、spring依赖注入等知识。
+
+3、jdk环境变量配置：java安装目录——%JAVA_HOME%。
+
+4、jpa：功能与jdbc类似，但比jdbc更高级。
+
+5、IDEA中project与moudle的区别：
+
+6、针对项目配置jdk及类库。
+
+7、IDEA内置maven，但建议使用自己配置的maven，避免版本不一致的问题。
+
+8、文本对比工具：BC（beyond compare）。
+
+part2：maven学习笔记
+
+9、
