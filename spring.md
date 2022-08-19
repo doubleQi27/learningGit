@@ -122,6 +122,65 @@ Bean的定义——> Bean的初始化——>——Bean的使用——Bean的销�
     </props>
   </property>
 
+  10、spring自动装配Bean
+  自动装配指无需用 ref 显式指定 Bean 对象间的依赖关系，而是由Spring容器检查XML配置文件内容，根据某种规则，为调用者Bean注入被依赖的Bean。
+  注意：此处仅关心依赖注入，即为调用者 Bean 对象注入被调用者 Bean 对象，不是普通属性注入。
+
+  两种形式：
+           在<beans/>标签中指定 default-autowire 属性，对所有的 bean 有效；
+           在<bean/>标签中指定 autowire 属性，只对当前 bean 有效。
+
+  default-autowire 与 autowire 的值：
+  ① no：不自动装配，必须显式定义，默认配置；
+  ② byName：根据 setter 方法名自动进行装配：
+    Spring容器查找容器中全部Bean，找出其id与setter方法名去掉set前缀，并小写首字母后同名的Bean来完成注入。如果没有找到匹配的Bean实例，则Spring不会进行任何注入。
+  ③ byType：根据 setter 方法的形参类型来自动装配：
+    Spring容器查找容器中的全部Bean，如果正好有一个Bean类型与setter方法的形参类型匹配，就自动注入这个Bean；如果找到多个这样的Bean，就抛出一个异常；如果没有找到这样的Bean，则什么都不会发生，setter方法不会被调用。
+  ④ constructor: 与byType类似，区别是用于自动匹配构造器的参数：
+    如果容器不能恰好找到一个与构造器参数类型匹配的Bean，则会抛出一个异常。
+  ⑤ autodetect: Spring容器根据Bean内部结构，自行决定使用constructor或byType
+    策略：
+    如果找到一个默认的构造函数，那么就会应用byType策略。
+
+  注意：既用了 ref 显式定义依赖关系和自动装配的情况下，显式定义覆盖自动装配。对于复杂的项目，不鼓励使用自动装配，这样会降低依赖透明性。
+
+  11、创建 Bean 的三种方式
+  ① 使用构造器创建 Bean
+    这是最常见的情况，简单理解就是用构造函数创建对象。
+    eg:
+    <bean id="Person" class="Person">
+        <constructor-arg name="name" value="zhaoqi"></constructor-arg>
+        <constructor-arg name="sex" type="boolean" value="true"></constructor-arg>
+        <constructor-arg name="age" type="int" value="24"></constructor-arg>
+        <constructor-arg name="ID_NUM" value="121212121212122"></constructor-arg>
+        <constructor-arg name="personalCar" ref ="Car"></constructor-arg>
+    </bean>
+
+  ② 使用静态工厂方法创建 Bean
+    在这种情况下，必须指定<bean/>的 class 属性的值，但此时其值不再是 Bean 的全类名，而是 静态工厂类，Spring 通过该属性知道由哪个工厂类来创建 Bean 对象实例。此外，还需使用 factory-method 属性指定静态工厂方法，Spring 最终使用该静态工厂方法创建并返回 Bean 对象实例。如果静态工厂方法需要参数，则使用<constructor-arg.../>元素指定静态工厂方法的参数。
+    eg:
+    <bean id="myService" class="com.myproject.ba03.ServiceFactory" factory-method="getSomeService"/>
+      <constructor-arg value="奔驰"></constructor-arg>
+      <constructor-arg value="SUV"></constructor-arg>
+      ……
+  
+  ③ 调用实例工厂方法创建 Bean
+    实例工厂方法与静态工厂方法只有一个不同：调用静态工厂方法只需使用工厂类即可，而调用实例工厂方法则需要工厂实例。使用实例工厂方法时，配置Bean实例的<bean.../>元素无须 class 属性，配置实例工厂方法使用 factory-bean 指定工厂实例。
+    
+    采用实例工厂方法创建Bean的<bean.../>元素时需要指定如下两个属性：
+    
+    factory-bean: 该属性的值为工厂Bean的id。
+    factory-method: 该属性指定实例工厂的工厂方法。
+
+    若调用实例工厂方法时需要传入参数，则使用<constructor-arg.../>元素确定参数值
+  eg：
+  <bean id="instanceFactoryInstance" factory-bean="myFactory"
+          factory-method="createBeanClassInstance"/>
+      <constructor-arg value="奔驰"></constructor-arg>
+      <constructor-arg value="SUV"></constructor-arg>
+      ……
+
+---------------------------------------------written by 王欣泽 --------------------------------------------------
 ### Aware 接口
 
 ```java
